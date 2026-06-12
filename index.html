@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be Mine Forever?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ffd6e7,#ff8fb1);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+}
+
+.container{
+    padding:20px;
+    z-index:10;
+    max-width:700px;
+}
+
+.bear{
+    font-size:70px;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(2.8rem,8vw,5rem);
+    color:white;
+    margin-top:10px;
+    text-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.subtitle{
+    font-style:italic;
+    color:white;
+    font-size:1.1rem;
+    margin-top:10px;
+}
+
+.closing{
+    color:white;
+    margin-top:20px;
+    font-size:1rem;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+#yesBtn{
+    border:none;
+    padding:18px 42px;
+    border-radius:999px;
+    background:linear-gradient(45deg,#ff1744,#ff4d6d);
+    color:white;
+    font-size:1.2rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(255,0,80,.5);
+}
+
+#yesBtn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 35px rgba(255,0,80,.9);
+}
+
+#noBtn{
+    padding:12px 28px;
+    border-radius:999px;
+    border:2px solid #ff1744;
+    background:white;
+    color:#ff1744;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.heart{
+    position:fixed;
+    bottom:-50px;
+    pointer-events:none;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    80%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+.celebration{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#ffb3cc,#ff5c8a);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+    text-align:center;
+}
+
+.yay{
+    font-size:clamp(3rem,10vw,7rem);
+    color:white;
+    font-weight:bold;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    50%{transform:scale(1.15);}
+}
+
+.spin{
+    font-size:80px;
+    animation:spin 2s linear infinite;
+    margin:15px 0;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.celebration p{
+    color:white;
+    font-size:1.4rem;
+}
+
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(120vh) rotate(720deg);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="container" id="proposal">
+    <div class="bear">🧸</div>
+
+    <h1>Will You Be Mine Forever?</h1>
+
+    <div class="subtitle">
+        I've gathering courage to ask you this...
+    </div>
+
+    <div class="closing">
+        Every love story is beautiful but ours is my favourite ❤️
+    </div>
+
+    <div class="buttons">
+        <button id="yesBtn">YES ❤️</button>
+        <button id="noBtn">No</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebration">
+    <div class="yay">Yayyyy!! ❤️</div>
+    <div class="spin">🥰</div>
+    <p>I knew you'd say yes...</p>
+</div>
+
+<script>
+const heartsContainer = document.getElementById("hearts");
+let heartsRunning = true;
+
+function createHeart(){
+    if(!heartsRunning) return;
+
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    const size = Math.random()*25+15;
+    const left = Math.random()*100;
+    const duration = Math.random()*5+5;
+
+    heart.style.left = left + "vw";
+    heart.style.fontSize = size + "px";
+    heart.style.animationDuration = duration + "s";
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),duration*1000);
+}
+
+for(let i=0;i<15;i++){
+    setTimeout(()=>{
+        createHeart();
+        setInterval(createHeart,900+Math.random()*1200);
+    },i*200);
+}
+
+const messages = [
+    "Nope, not an option 😏",
+    "Try again! ❤️",
+    "You sure about that? 🤔",
+    "Not happening! 😂",
+    "Think again! 😘"
+];
+
+let msgIndex = 0;
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+function moveNoButton(){
+
+    const yesRect = yesBtn.getBoundingClientRect();
+
+    let x,y;
+    let safe=false;
+
+    while(!safe){
+        x=Math.random()*(window.innerWidth-120);
+        y=Math.random()*(window.innerHeight-60);
+
+        if(
+            x > yesRect.right + 80 ||
+            x + 120 < yesRect.left - 80 ||
+            y > yesRect.bottom + 80 ||
+            y + 60 < yesRect.top - 80
+        ){
+            safe=true;
+        }
+    }
+
+    noBtn.style.position="fixed";
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+
+    noBtn.textContent = messages[msgIndex];
+    msgIndex = (msgIndex + 1) % messages.length;
+}
+
+noBtn.addEventListener("mouseenter",moveNoButton);
+noBtn.addEventListener("click",moveNoButton);
+noBtn.addEventListener("touchstart",function(e){
+    e.preventDefault();
+    moveNoButton();
+});
+
+yesBtn.addEventListener("click",()=>{
+
+    heartsRunning=false;
+    heartsContainer.innerHTML="";
+
+    document.getElementById("proposal").style.display="none";
+
+    const celebration=document.getElementById("celebration");
+    celebration.style.display="flex";
+
+    const colors=[
+        "#ff1744","#ff9100","#00e676",
+        "#2979ff","#ffea00","#d500f9",
+        "#00e5ff","#ff4081"
+    ];
+
+    for(let i=0;i<120;i++){
+
+        const c=document.createElement("div");
+        c.className="confetti";
+
+        c.style.background=
+        colors[Math.floor(Math.random()*colors.length)];
+
+        c.style.left=Math.random()*100+"vw";
+        c.style.width=(Math.random()*10+6)+"px";
+        c.style.height=(Math.random()*10+6)+"px";
+
+        c.style.animationDuration=
+        (Math.random()*3+3)+"s";
+
+        celebration.appendChild(c);
+    }
+});
+</script>
+
+</body>
+</html>
